@@ -1,6 +1,9 @@
 package app.devfest.composablelottery.ui
 
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.material.Button
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,11 +29,20 @@ fun LotteryPickButton(
             Text(text = "다시 뽑기")
         }
 
+
     } else {
         // 뽑기 버튼 구현
-        Button(onClick = { onResetLottoList() }) {
+        Button(
+            onClick = {
+                var picked: Int
+                do {
+                    picked = totalLottoList.random()
+                } while (pickedLottoList.contains(picked))
+                onLottoNumberPicked(picked)
+            }) {
             Text(text = "뽑기")
         }
+
 
     }
 
@@ -41,7 +53,7 @@ fun LotteryPickButton(
 fun lotteryButton() {
     LotteryPickButton(
         totalLottoList = listOf(1, 10, 20, 30, 40, 45),
-        pickedLottoList = listOf(1, 11, 22, 33, 44, 45),
+        pickedLottoList = listOf(),
         onLottoNumberPicked = {}
     ) {
 
