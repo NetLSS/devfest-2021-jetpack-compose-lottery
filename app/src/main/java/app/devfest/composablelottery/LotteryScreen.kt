@@ -2,11 +2,13 @@ package app.devfest.composablelottery
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
 import app.devfest.composablelottery.ui.LotteryListUi
 import app.devfest.composablelottery.ui.LotteryPickButton
@@ -34,19 +36,29 @@ fun LotteryScreen() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        LotteryListUi(lottoNumbers = pickedLottoList)
-        LotteryPickButton(
-            totalLottoList = totalLottoList,
-            pickedLottoList = pickedLottoList,
-            onLottoNumberPicked = {
-                pickedLottoList = pickedLottoList.toMutableList().apply {
-                    add(it)
+        Row(
+            modifier = Modifier.weight(1f),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            LotteryListUi(lottoNumbers = pickedLottoList)
+        }
+        Row(
+            modifier = Modifier.weight(1f),
+            verticalAlignment = Alignment.Top
+        ) {
+            LotteryPickButton(
+                totalLottoList = totalLottoList,
+                pickedLottoList = pickedLottoList,
+                onLottoNumberPicked = {
+                    pickedLottoList = pickedLottoList.toMutableList().apply {
+                        add(it)
+                    }
+                },
+                onResetLottoList = {
+                    pickedLottoList = mutableListOf()
                 }
-            },
-            onResetLottoList = {
-                pickedLottoList  = mutableListOf()
-            }
-        )
+            )
+        }
     }
 
 }
