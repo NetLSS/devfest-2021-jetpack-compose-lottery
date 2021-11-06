@@ -1,9 +1,16 @@
 package app.devfest.composablelottery.ui
 
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import app.devfest.composablelottery.AppTheme
 
 @Composable
@@ -21,6 +28,10 @@ fun LotteryItemUi(lottoNumber: Int) {
         in 31 .. 40 -> Color(0xFF505050)
         in 31 .. 45 -> Color(0xFF46A22C)
         else -> Color(0x00000000)
+    }
+
+    Surface(color = ballColor, modifier = Modifier.padding(5.dp).clip(CircleShape)) {
+        Text(text = "$lottoNumber", modifier = Modifier.padding(5.dp))
     }
 
 }
