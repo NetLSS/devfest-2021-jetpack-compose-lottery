@@ -1,6 +1,15 @@
 package app.devfest.composablelottery
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import app.devfest.composablelottery.ui.LotteryListUi
+import app.devfest.composablelottery.ui.LotteryPickButton
 
 @Composable
 fun LotteryScreen() {
@@ -17,7 +26,33 @@ fun LotteryScreen() {
      * 가 있습니다.
      * */
 
-//    var totalLottoList by remember { mutableStateOf((1..45).toList()) }
-//    var pickedLottoList by remember { mutableStateOf(emptyList<Int>()) }
+    var totalLottoList by remember { mutableStateOf((1..45).toList()) }
+    var pickedLottoList by remember { mutableStateOf(emptyList<Int>()) }
 
+    Column(
+        modifier = Modifier.fillMaxSize(), // 화면 전체를 채우겠다
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        LotteryListUi(lottoNumbers = pickedLottoList)
+        LotteryPickButton(
+            totalLottoList = totalLottoList,
+            pickedLottoList = pickedLottoList,
+            onLottoNumberPicked = {
+                pickedLottoList = pickedLottoList.toMutableList().apply {
+                    add(it)
+                }
+            },
+            onResetLottoList = {
+                pickedLottoList  = mutableListOf()
+            }
+        )
+    }
+
+}
+
+@Preview(showBackground = true, widthDp = 320, heightDp = 320)
+@Composable
+fun LotteryScreenPreview() {
+    LotteryScreen()
 }
