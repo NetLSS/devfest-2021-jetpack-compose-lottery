@@ -1,8 +1,14 @@
 package app.devfest.composablelottery.ui
 
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import app.devfest.composablelottery.AppTheme
 
 @Composable
@@ -16,8 +22,16 @@ fun LotteryListUi(lottoNumbers: List<Int>) {
      * lottoNumbers 에 forEach 문으로 LotteryItemUi 를 선언하면 됩니다.
      * 다만 가로로 표시 되어야하므로 Row 안에서 구현을 해야합니다.
      * */
-    
-    Row {
+
+    Row(
+        modifier = Modifier
+            .animateContentSize(
+                animationSpec = spring(
+                    dampingRatio = Spring.DampingRatioMediumBouncy,
+                    stiffness = Spring.StiffnessLow
+                )
+            )
+    ) {
         lottoNumbers.map { 
             LotteryItemUi(lottoNumber = it)
         }
